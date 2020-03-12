@@ -28,11 +28,11 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}  
     - name: Build latest
       if: success()
-      run: docker build -t jgrantd/ssm-to-yaml:${IMAGE_TAG} .
+      run: docker build -t jgrantd/ssm-to-yaml:latest .
     - name: Push to docker hub :tag
       if: success()
       uses: actions-hub/docker@master
       with:
-        args: push jgrantd/ssm-to-yaml:${IMAGE_TAG}
+        args: push jgrantd/ssm-to-yaml:latest
     env:
         CI: true
