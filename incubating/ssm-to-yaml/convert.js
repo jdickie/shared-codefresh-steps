@@ -25,7 +25,7 @@ const getSSMValues = (path) => {
                 value: el.Value
             });
         });
-        fs.writeFileSync(YAML_OUTPUT_PATH, yaml.safeDump(output));
+        fs.writeFileSync(YAML_OUTPUT_PATH, yaml.safeDump(output), { flag: 'wx' });
     });
 }
 
