@@ -1,0 +1,19 @@
+{
+  "name": "ssm-to-yaml",
+  "version": "1.0.0",
+  "description": "Helm step for packaging yaml from SSM",
+  "main": "convert.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdickie/shared-codefresh-steps"
+  },
+  "scripts": {
+    "build": "npm install"
+  },
+  "author": "gdickie",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.638.0",
+    "js-yaml": "^3.13.1"
+  }
+}

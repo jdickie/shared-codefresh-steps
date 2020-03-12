@@ -1,0 +1,27 @@
+version: '1.0'
+kind: step-type
+metadata:
+  name: ssm-to-yaml
+  version: 0.0.1
+  isPublic: false
+  description: >-
+    Converts SSM parameters in a given path to YAML list that can be inserted into a Kubernetes
+    Secret.
+  sources:
+    - 'https://github.com/jdickie/shared-codefresh-steps/tree/master/incubating/ssm-to-yaml'
+  stage: incubating
+  maintainers:
+    - name: Grant Dickie
+  categories:
+    - featured
+  official: false
+  tags: 
+    - ssm
+    - yaml
+    - Kubernetes
+  examples:
+    - description: >-
+        Example usage -- pulling in all SSM parameters that live in the /secrets/dev path. These get
+        converted into a YAML file that can be inserted into a Kubernetes object.
+spec:
+  
