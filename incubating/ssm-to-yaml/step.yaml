@@ -1,7 +1,7 @@
 version: '1.0'
 kind: step-type
 metadata:
-  name: ssm-to-yaml
+  name: npr-infra-test/ssm-to-yaml
   version: 0.0.1
   isPublic: false
   description: >-
@@ -20,9 +20,18 @@ metadata:
     - yaml
     - Kubernetes
   examples:
-    - description: >-
-        Example usage -- pulling in all SSM parameters that live in the /secrets/dev path. These get
-        converted into a YAML file that can be inserted into a Kubernetes object.
+    - description: 'SSM > Yaml'
+      workflow: 
+        version: '1.0'
+        steps:
+          SSM:
+            title: Importing SSM values
+            type: npr-infra-test/ssm-to-yaml
+            arguments:
+              - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
+              - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
+              - SSM_PATH=/secrets/dev
+              - YAML_OUTPUT_PATH=/codefresh/volume/secret.yaml
 spec:
   arguments: |-
     {
@@ -32,7 +41,10 @@ spec:
         "additionalProperties": false,
         "patterns": [],
         "required": [
-          ""
+          "AWS_ACCESS_KEY_ID",
+          "AWS_SECRET_ACCESS_KEY",
+          "SSM_PATH",
+          "YAML_OUTPUT_PATH"
         ],
         "properties": {
           "AWS_ACCESS_KEY_ID": {
@@ -44,7 +56,7 @@ spec:
             "description": "Secret for the iAM user that has access to your SSM values."
           },
           "SSM_PATH": {
-            "type"; "string",
+            "type": "string",
             "description": "Path in AWS SSM for the values you want to retrieve. This is fed into the GetParametersByPath command in AWS nodejs SDK. For everything under /path/name it will retrieve all Name-Value pairs."
           },
           "YAML_OUTPUT_PATH": {
@@ -55,10 +67,14 @@ spec:
     }
   steps:
     main:
-      name: ssm-to-yaml
+      name: npr-infra-test/ssm-to-yaml
       image: jgrantd/ssm-to-yaml
       environment:
         - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
         - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
         - SSM_PATH=${{SSM_PATH}}
         - YAML_OUTPUT_PATH=${{YAML_OUTPUT_PATH}}
+      commands:
+        - cd /application
+        - node convert.js
+
