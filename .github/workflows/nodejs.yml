@@ -28,7 +28,7 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}  
     - name: Build latest
       if: success()
-      run: docker build -t jgrantd/ssm-to-yaml:latest .
+      run: cd incubating/ssm-to-yaml && docker build -t jgrantd/ssm-to-yaml:latest .
     - name: Push to docker hub :tag
       if: success()
       uses: actions-hub/docker@master
