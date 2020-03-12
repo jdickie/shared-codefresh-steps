@@ -24,4 +24,41 @@ metadata:
         Example usage -- pulling in all SSM parameters that live in the /secrets/dev path. These get
         converted into a YAML file that can be inserted into a Kubernetes object.
 spec:
-  
+  arguments: |-
+    {
+        "definitions": {},
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "patterns": [],
+        "required": [
+          ""
+        ],
+        "properties": {
+          "AWS_ACCESS_KEY_ID": {
+            "type": "string",
+            "description": "Access key for the iAM user that can access your SSM values. Be sure to set this as a secure string."
+          },
+          "AWS_SECRET_ACCESS_KEY": {
+            "type": "string",
+            "description": "Secret for the iAM user that has access to your SSM values."
+          },
+          "SSM_PATH": {
+            "type"; "string",
+            "description": "Path in AWS SSM for the values you want to retrieve. This is fed into the GetParametersByPath command in AWS nodejs SDK. For everything under /path/name it will retrieve all Name-Value pairs."
+          },
+          "YAML_OUTPUT_PATH": {
+            "type": "string",
+            "description": "Path (Including filename.yaml) to the output file."
+          }
+        }
+    }
+  steps:
+    main:
+      name: ssm-to-yaml
+      image: jgrantd/ssm-to-yaml
+      environment:
+        - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
+        - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
+        - SSM_PATH=${{SSM_PATH}}
+        - YAML_OUTPUT_PATH=${{YAML_OUTPUT_PATH}}
