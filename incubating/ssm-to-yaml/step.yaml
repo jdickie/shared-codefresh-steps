@@ -16,8 +16,8 @@ metadata:
     - featured
   official: false
   icon:
-    type: png
-    url: 'https://github.com/jdickie/shared-codefresh-steps/tree/master/incubating/ssm-to-yaml/logo.png'
+    type: image
+    url: 'https://user-images.githubusercontent.com/111450/76564810-b778e880-647f-11ea-9680-91ea3918daa6.png'
   tags: 
     - ssm
     - yaml
