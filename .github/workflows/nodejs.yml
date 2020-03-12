@@ -21,12 +21,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: cd incubating/ssm-to-yaml
-    - name: Docker build
-      uses: HurricanKai/Publish-Docker-Github-Action@master
-      with:
-        cache: true
-        username: ${{docker.USERNAME}}
-        password: ${{docker.PASSWORD}}
-      
+    
+    - name: Login
+      uses: actions-hub/docker/login@master
       env:
+        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}  
+    - name: Build latest
+      if: success()
+      run: docker build -t jgrantd/ssm-to-yaml:${IMAGE_TAG} .
+    - name: Push to docker hub :tag
+      if: success()
+      uses: actions-hub/docker@master
+      with:
+        args: push jgrantd/ssm-to-yaml:${IMAGE_TAG}
+    env:
         CI: true
