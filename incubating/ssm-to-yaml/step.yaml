@@ -78,6 +78,7 @@ spec:
         - SSM_PATH=${{SSM_PATH}}
         - YAML_OUTPUT_PATH=${{YAML_OUTPUT_PATH}}
       commands:
+        - rm -f $YAML_OUTPUT_PATH
         - cd /application
         - node convert.js
 
