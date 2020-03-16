@@ -17,10 +17,12 @@ const getSSMValues = (path) => {
             console.log(err.message);
         }
         const output = {
-            secrets: []
+            ssm: {
+                secrets: []
+            }
         };
         data.Parameters.forEach((el) => {
-            output.secrets.push({
+            output.ssm.secrets.push({
                 name: el.Name.replace(SSM_PATH, '').replace('/', ''),
                 value: el.Value
             });

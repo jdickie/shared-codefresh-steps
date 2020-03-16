@@ -13,8 +13,19 @@ api: v1
 kind: Secret
 # Metadata etc.
 stringData:
-{{- range .Values.mysecrets.secrets }}
+{{- range .Values.ssm.secrets }}
   {{ .name | quote }}: {{ .value | quote }}
 {{- end }}
 ```
 
+Output format for the YAML file will be as such:
+
+```yaml
+ssm:
+  secrets:
+    - name: SECRET_1
+      value: VALUE_1
+    - name: SECRET_2
+      value: VALUE_2
+    # And so on
+```
