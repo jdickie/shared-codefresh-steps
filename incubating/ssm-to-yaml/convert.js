@@ -34,13 +34,16 @@ const getAllValues = async () => {
     let token = 0;
     data = await getSSMValues(SSM_PATH);
     // Need to supply a NextToken - as long as this is present we're supposed to loop through results.
-    while (data.NextToken) {
+    while (data.Parameters) {
         data.Parameters.forEach((el) => {
             output.ssm.secrets.push({
                 name: el.Name.replace(SSM_PATH, '').replace('/', ''),
                 value: el.Value
             });
         });
+        if (!data.NextToken) {
+            break;
+        }
         token = data.NextToken;
         data = await getSSMValues(SSM_PATH, token);
     }
