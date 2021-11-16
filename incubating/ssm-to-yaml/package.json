@@ -13,7 +13,7 @@
   "author": "gdickie",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.638.0",
+    "aws-sdk": "^2.814.0",
     "js-yaml": "^3.13.1"
   }
 }
